@@ -168,6 +168,26 @@ a.ol-full-screen-true:after {
 
 <!-- Survey code -->
 
+<#div id="survey" class="modal fade" data-backdrop="static">
+  <#div class="modal-dialog">
+    <#div class="modal-content">
+      <#div class="modal-header">
+        <#button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <#h4 class="modal-title">Ciao! Do you want to help us?</h4>
+      </#div>
+      <#div class="modal-body">
+        <#p>Grazie per aver partecipato. Siamo interessati a conoscere la tua opinione sul progetto. <strong>Potresti rispondere a quattro brevi domande?</strong>    
+        </#p>  
+          <#p>Thanks for contributing one task for the project. We are interested in knowing how you found out about us. <strong>Could you please answer two questions in a short survey?</strong>    
+        </#p>  
+      </#div>
+      <#div class="modal-footer">
+        <#button type="button" class="btn btn-default" data-dismiss="modal">Skip</button>
+        <#a class="btn btn-large btn-success" href="https://docs.google.com/forms/d/1qCLpNvZ_FxVWWLj5sOcMlfpQ64nXLrHAmllBQkBv_Uo/viewform?embedded=true">Yes, of course! </a>
+      </#div>
+    </#div><!-- /.modal-content -->
+  </#div><!-- /.modal-dialog -->
+</#div><!-- /.modal -->
 
 <!-- Survey code ends -->
 
@@ -308,8 +328,10 @@ pybossa.taskLoaded(function(task, deferred) {
             $("#holes").removeClass("disabled");
             $("#status").text("Photo loaded!");
         });
+        img.attr('src', task.info.url_mo).css('height', 460);
         
         //Log the url of image being masked.
+        console.log(task.info.url_mo);
         
         img.addClass('img-polaroid');
         task.info.image = img;
@@ -430,6 +452,7 @@ pybossa.taskLoaded(function(task, deferred) {
                     html: '&copy; <a href="http://micropasts.org">Micropasts</a>'
                   })
                 ],
+                url: task.info.url_mo,
                 imageSize: [5184, 2912],
                 projection: task.pixelProjection,
                 imageExtent: task.pixelProjection.getExtent()
@@ -483,6 +506,7 @@ pybossa.taskLoaded(function(task, deferred) {
                  'task_id': task.id,
                  'outline': [],
                  'holes': [],
+                 'img': task.info.url_mo};
         task.polygon = false;
         task.holes = false;
         }
@@ -598,6 +622,7 @@ pybossa.presentTask(function(task, deferred) {
                     //task.answer = {
                     //    'task_id': task.id,
                     //    'polygon': polygons,
+                    //    'img': task.info.url_mo};
                     task.answer.outline = polygons;
 
                     if (task.holes) {
